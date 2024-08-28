@@ -1,7 +1,17 @@
 export type MovieInNewest = {
-    tmdb: object;
-    imdb: object;
-    modified: object;
+    tmdb: {
+        type: string;
+        id: string;
+        season?:string;
+        vote_average: number;
+        vote_count: number;
+    };
+    imdb: {
+        id: string;
+    };
+    modified: {
+        time: string;
+    };
     _id: string;
     name: string;
     slug: string;

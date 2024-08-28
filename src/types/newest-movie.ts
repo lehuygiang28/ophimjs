@@ -2,7 +2,7 @@ export type MovieInNewest = {
     tmdb: {
         type: string;
         id: string;
-        season?:string;
+        season?: string;
         vote_average: number;
         vote_count: number;
     };

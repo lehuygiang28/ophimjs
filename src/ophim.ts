@@ -1,29 +1,29 @@
 import { Core } from './core';
 import type { MovieType } from './enum';
-import type { Category, Movie, NewestResponse, Region } from './types';
+import type { Category, Movie, NewestResponse, Region, SearchResponse } from './types';
 import type { OPhimResponseList, OPhimResponseSingle } from './types/response-wrapper';
 
 export class Ophim extends Core {
-    public searchMovies({ keyword }: { keyword: string }) {
+    public searchMovies({ keyword }: { keyword: string }): Promise<SearchResponse> {
         const normalizedKeyword = encodeURIComponent(keyword.trim());
         return this.fetch(`v1/api/tim-kiem/${normalizedKeyword}`);
     }
 
-    public getNewestMovies({ page = 1 }) {
+    public getNewestMovies({ page = 1 }): Promise<NewestResponse> {
         const path = `danh-sach/phim-moi-cap-nhat?page=${page}`;
-        return this.fetch<NewestResponse>(path);
+        return this.fetch(path);
     }
 
-    public getMovieDetail(params: { slug?: string; _id?: string }): Promise<
-        OPhimResponseSingle<Movie>
-    > {
+    public getMovieDetail(
+        params: Partial<Pick<Movie, '_id' | 'slug'>>,
+    ): Promise<OPhimResponseSingle<Movie>> {
         this.requireAtLeastOne(params, ['slug']);
 
         if (params?.slug) {
             return this.fetch(`v1/api/phim/${params.slug}`);
         }
 
-        return this.fetch(`v1/api/phim/id/${params._id}`);
+        return this.fetch(`v1/api/phim/id/${params?._id}`);
     }
 
     public getCategories(): Promise<OPhimResponseList<Category>> {
@@ -32,16 +32,15 @@ export class Ophim extends Core {
 
     public getMoviesByCategory({
         slug,
-    }: { slug: Category['slug'] }): Promise<OPhimResponseList<Movie>> {
+    }: Pick<Category, 'slug'>): Promise<OPhimResponseList<Movie>> {
         return this.fetch(`v1/api/the-loai/${slug}`);
     }
+
     public getRegions(): Promise<OPhimResponseList<Region>> {
         return this.fetch('v1/api/quoc-gia');
     }
 
-    public getMoviesByRegion({
-        slug,
-    }: { slug: Region['slug'] }): Promise<OPhimResponseList<Movie>> {
+    public getMoviesByRegion({ slug }: Pick<Region, 'slug'>): Promise<OPhimResponseList<Movie>> {
         return this.fetch(`v1/api/quoc-gia/${slug}`);
     }
 

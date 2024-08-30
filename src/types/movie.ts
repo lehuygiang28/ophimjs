@@ -1,6 +1,38 @@
 import type { Category } from './category';
 import type { Region } from './region';
 
+export type ServerData = {
+    /**
+     * @example "Full"
+     */
+    name: string;
+    /**
+     * @example "full"
+     */
+    slug: string;
+    /**
+     * @example "One.Piece.Film.Red.2022.AMZN-WEBDL.Zino"
+     */
+    filename: string;
+    /**
+     * @example "https://vip.opstream14.com/share/a96683574013404fbdc72bcb5f4c80e7"
+     */
+    link_embed: string;
+    /**
+     * @example "https://vip.opstream14.com/20230321/33905_262f8bb8/index.m3u8"
+     */
+    link_m3u8: string;
+};
+
+export type Server = {
+    /**
+     * @example "Vietsub #1"
+     */
+    server_name: string;
+    server_data: ServerData[];
+};
+
+
 export type Movie = {
     /**
      * @example {"type": null, "id": "", "season": null, "vote_average": 0, "vote_count": 0}
@@ -106,7 +138,15 @@ export type Movie = {
      * @example "Vietsub + TM"
      */
     lang?: string;
+
+    /**
+     * @example ""
+     */
     notify?: string;
+
+    /**
+     * @example ""
+     */
     showtimes?: string;
 
     /**
@@ -119,30 +159,11 @@ export type Movie = {
      */
     year?: number;
 
+    /**
+     * @example 111
+     */
     view?: number;
 
-    // episode_time?: number;
-    /**
-     * @example 4769
-     */
-    // view_total?: number;
-    // view_day?: number;
-    // view_week?: number;
-    // rating_star?: number;
-    // rating_count?: number;
-    // seo_title?: string;
-    // seo_des?: string;
-    // seo_key?: string;
-
-    /**
-     * @example "2022-07-25T10:12:16.000Z"
-     */
-    // created_at: string;
-    /**
-     * @example "2023-03-21T10:51:03.000Z"
-     */
-    // updated_at: string;
-    // deleted_at?: string;
     /**
      * @example [""]
      */
@@ -159,51 +180,4 @@ export type Movie = {
      * @example [{"id": "620a2307e0fc277084dfd726", "name": "Nh\u1eadt B\u1ea3n", "slug": "nhat-ban"}]
      */
     country?: Region[];
-};
-
-export type Episode = {
-    /**
-     * @example "Full"
-     */
-    name: string;
-    /**
-     * @example "full"
-     */
-    slug: string;
-    /**
-     * @example "One.Piece.Film.Red.2022.AMZN-WEBDL.Zino"
-     */
-    filename: string;
-    /**
-     * @example "https://vip.opstream14.com/share/a96683574013404fbdc72bcb5f4c80e7"
-     */
-    link_embed: string;
-    /**
-     * @example "https://vip.opstream14.com/20230321/33905_262f8bb8/index.m3u8"
-     */
-    link_m3u8: string;
-};
-
-export type ServerData = {
-    /**
-     * @example "Vietsub #1"
-     */
-    serve_name: string;
-    server_data: Episode[];
-};
-
-export type MovieResponse = {
-    /**
-     * @example true
-     */
-    status: boolean;
-    /**
-     * @example ""
-     */
-    msg: string;
-    movie: Movie;
-    /**
-     * @example [{"server_name": "Vietsub #1", "server_data": [{"name": "Full", "slug": "full", "filename": "One.Piece.Film.Red.2022.AMZN-WEBDL.Zino", "link_embed": "https://vip.opstream14.com/share/a96683574013404fbdc72bcb5f4c80e7", "link_m3u8": "https://vip.opstream14.com/20230321/33905_262f8bb8/index.m3u8"}]}, {"server_name": "Thuy\u1ebft Minh #1", "server_data": [{"name": "Full", "slug": "full", "filename": "One Piece Film Red 2022  AMZN WEB-DL 1080p EAC3 H264 (1)", "link_embed": "https://vip.opstream14.com/share/3e93d94392796ac22707eb6e017acdbc", "link_m3u8": "https://vip.opstream14.com/20230313/33668_0d5c2f8e/index.m3u8"}]}]
-     */
-    episodes?: ServerData[];
 };

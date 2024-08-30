@@ -1,6 +1,7 @@
 type OPhimResponse = {
     status: boolean;
     message?: string;
+    msg?: string;
     data: {
         seoOnPage?: {
             og_type: string;

@@ -1,6 +1,6 @@
 import { Core } from './core';
 import type { MovieType } from './enum';
-import type { Category, Movie, NewestResponse, Region, SearchResponse } from './types';
+import type { Category, Movie, NewestResponse, Region, SearchResponse, Server } from './types';
 import type { OPhimResponseList, OPhimResponseSingle } from './types/response-wrapper';
 
 export class Ophim extends Core {
@@ -14,9 +14,13 @@ export class Ophim extends Core {
         return this.fetch(path);
     }
 
-    public getMovieDetail(
-        params: Partial<Pick<Movie, '_id' | 'slug'>>,
-    ): Promise<OPhimResponseSingle<Movie>> {
+    public getMovieDetail(params: Partial<Pick<Movie, '_id' | 'slug'>>): Promise<
+        OPhimResponseSingle<
+            Movie & {
+                episodes?: Server[];
+            }
+        >
+    > {
         this.requireAtLeastOne(params, ['slug']);
 
         if (params?.slug) {

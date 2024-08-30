@@ -32,7 +32,6 @@ export type Server = {
     server_data: ServerData[];
 };
 
-
 export type Movie = {
     /**
      * @example {"type": null, "id": "", "season": null, "vote_average": 0, "vote_count": 0}

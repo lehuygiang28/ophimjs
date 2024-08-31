@@ -3,7 +3,7 @@ import { Ophim } from '../src/ophim';
 
 async function main() {
     const ophim = new Ophim({
-        host: 'https://ophim1.com/',
+        host: 'https://ophim1.com/', // https://phimapi.com
     });
 
     const newestMovies = await ophim.getNewestMovies({ page: 100 });

@@ -9,8 +9,8 @@ export class Ophim extends Core {
         return this.fetch(`v1/api/tim-kiem/${normalizedKeyword}`);
     }
 
-    public getNewestMovies({ page = 1 }): Promise<NewestResponse> {
-        const path = `danh-sach/phim-moi-cap-nhat?page=${page}`;
+    public getNewestMovies({ page = 1, limit = 24 }): Promise<NewestResponse> {
+        const path = `danh-sach/phim-moi-cap-nhat?page=${page}&limit=${limit}`;
         return this.fetch(path);
     }
 

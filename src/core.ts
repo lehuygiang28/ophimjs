@@ -39,8 +39,24 @@ export class Core {
                 'Content-Type': 'application/json',
             };
         }
+        const response = await fetch(fetchUrl, fetchOptions);
+        const clonedResponse = response.clone();
 
-        return fetch(fetchUrl, fetchOptions).then((res) => res.json() as T);
+        try {
+            const parseJson = (await clonedResponse.json()) as T;
+            return parseJson;
+        } catch (error) {
+            const parseText = (await response.text())?.toString();
+            // Replace all occurrences
+            const cleanedText = parseText.replace(/{"status":false,"msg":"hmmm!"}/g, '');
+
+            try {
+                const tryParseJson = JSON.parse(cleanedText) as T;
+                return tryParseJson;
+            } catch (error) {
+                throw new Error(`Failed to parse response: ${error}`);
+            }
+        }
     }
 
     protected requireAtLeastOne(object: Record<string, unknown>, keys: string[]): void {

@@ -16,7 +16,7 @@ export class Core {
         this.host = host.replace(/\/+$/, ''); // Remove trailing slash from host
     }
 
-    protected async fetch<T>(url: string, options?: FetchOptions): Promise<T> {
+    protected async request<T>(url: string, options?: FetchOptions): Promise<T> {
         const { headers, query, data, method = 'GET' } = options || {};
 
         const queryParams = query
